@@ -9,6 +9,7 @@ class Course extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'code', 'unit_count'];
     public function offerings()
 {
     return $this->hasMany(Offering::class);

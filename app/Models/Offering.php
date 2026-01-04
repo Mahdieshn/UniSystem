@@ -9,6 +9,12 @@ class Offering extends Model
 {
     use HasFactory;
 
+     protected $fillable = [
+        'course_id',
+        'professor_id',
+        'term',
+        "capacity"
+    ];
     public function course()
 {
     return $this->belongsTo(Course::class);

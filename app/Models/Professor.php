@@ -9,6 +9,8 @@ class Professor extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function offerings()
 {
     return $this->hasMany(Offering::class);

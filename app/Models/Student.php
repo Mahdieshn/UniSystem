@@ -9,6 +9,8 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'student_number'];
+
     public function enrollments()
 {
     return $this->hasMany(Enrollment::class);
