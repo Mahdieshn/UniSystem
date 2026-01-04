@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Offering extends Model
 {
     use HasFactory;
+
+    public function course()
+{
+    return $this->belongsTo(Course::class);
+}
+
+public function professor()
+{
+    return $this->belongsTo(Professor::class);
+}
+
+public function enrollments()
+{
+    return $this->hasMany(Enrollment::class);
+}
 }
