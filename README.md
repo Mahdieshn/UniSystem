@@ -3,12 +3,21 @@
 A RESTful API for managing a university course enrollment system built with Laravel.
 The project focuses on clean data modeling, proper entity relationships, and backend best practices.
 
+---
+
 ## System Requirements
 
+### With Docker (Recommended)
+- Docker
+- Docker Compose
+
+### Without Docker (Local Setup)
 - PHP >= 8.1
 - Composer
 - Laravel 10+
 - MySQL or SQLite
+
+---
 
 ## Key Features
 
@@ -25,6 +34,8 @@ The project focuses on clean data modeling, proper entity relationships, and bac
 - Strict request validation
 - Proper error handling with meaningful HTTP status codes
 - Feature tests covering enrollment logic and capacity constraints
+
+---
 
 ## Core Entities
 
@@ -50,22 +61,66 @@ The project focuses on clean data modeling, proper entity relationships, and bac
    - student
    - offering
 
+---
+
 ## Installation & Setup
+
+### Docker Setup (Recommended)
+
+This project is fully Dockerized using **Laravel Sail**.
+
+1. Copy environment configuration file:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Start containers:
+   ```bash
+   ./vendor/bin/sail up -d
+   ```
+
+3. Run database migrations:
+   ```bash
+   ./vendor/bin/sail artisan migrate
+   ```
+
+4. Run automated tests:
+   ```bash
+   ./vendor/bin/sail artisan test
+   ```
+
+#### Notes
+- No local PHP or database installation is required.
+- Docker runs the application, database, and related services.
+- Recommended for development and team environments.
+
+---
+
+### Local Setup (Without Docker)
 
 1. Clone the repository and navigate to the project directory.
 2. Install dependencies:
    ```bash
    composer install
    ```
+
 3. Create the `.env` file and configure database credentials.
 4. Generate the application key:
    ```bash
    php artisan key:generate
    ```
+
 5. Run database migrations:
    ```bash
    php artisan migrate
    ```
+
+6. Run automated tests:
+   ```bash
+   php artisan test
+   ```
+
+---
 
 ## API Endpoints
 
@@ -78,17 +133,12 @@ The project focuses on clean data modeling, proper entity relationships, and bac
 | POST | /api/enrollments | Enroll a student in an offering |
 | GET  | /api/enrollments?student_id={id} | Get enrollments of a student |
 
-## Testing
-
-Run automated feature tests:
-```bash
-php artisan test
-```
+---
 
 ## Project Structure
 
 - **app/Models**  
-  Eloquent models with defined relationships
+  Eloquent models with clearly defined relationships
 
 - **app/Http/Controllers**  
   Application logic and request handling
@@ -96,8 +146,10 @@ php artisan test
 - **database/migrations**  
   Database schema definitions
 
+---
+
 ## Notes
 
 - RESTful API design
 - Business rules enforced at application level
-- Suitable for academic systems or backend portfolio projects
+- Suitable for academic systems and backend portfolio projects
