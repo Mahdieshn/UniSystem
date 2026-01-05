@@ -9,6 +9,7 @@ class Enrollment extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['student_id', 'offering_id'];
     public function student()
 {
     return $this->belongsTo(Student::class);
