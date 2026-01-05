@@ -1,17 +1,19 @@
 # University Enrollment API
 
 A RESTful API for managing a university course enrollment system built with Laravel.
-The project focuses on clean data modeling, proper entity relationships, and backend best practices.
+This project focuses on clean data modeling, proper entity relationships, and backend best practices.
 
 ---
 
 ## System Requirements
 
-### With Docker (Recommended)
+### Docker Setup (Recommended)
 - Docker
-- Docker Compose
+- Docker Compose (v2)
+- Linux / macOS  
+- **Windows: WSL2 required**
 
-### Without Docker (Local Setup)
+### Local Setup (Without Docker)
 - PHP >= 8.1
 - Composer
 - Laravel 10+
@@ -67,24 +69,35 @@ The project focuses on clean data modeling, proper entity relationships, and bac
 
 ### Docker Setup (Recommended)
 
-This project is fully Dockerized using **Laravel Sail**.
+This project uses **Laravel Sail** and Docker Compose (`compose.yml`).
 
-1. Copy environment configuration file:
+> **Windows users:**  
+> Laravel Sail must be executed inside **WSL2**.  
+> Running Sail directly from Git Bash (MINGW) or Windows shells is not supported.
+
+#### Steps
+
+1. Copy environment configuration:
    ```bash
    cp .env.example .env
    ```
 
-2. Start containers:
+2. Install PHP dependencies (required to generate `vendor/bin/sail`):
+   ```bash
+   composer install
+   ```
+
+3. Start Docker containers:
    ```bash
    ./vendor/bin/sail up -d
    ```
 
-3. Run database migrations:
+4. Run database migrations:
    ```bash
    ./vendor/bin/sail artisan migrate
    ```
 
-4. Run automated tests:
+5. Run automated tests:
    ```bash
    ./vendor/bin/sail artisan test
    ```
@@ -92,7 +105,26 @@ This project is fully Dockerized using **Laravel Sail**.
 #### Notes
 - No local PHP or database installation is required.
 - Docker runs the application, database, and related services.
-- Recommended for development and team environments.
+- Default HTTP port is **80**. If port 80 is already in use (Laragon / IIS / etc.), set:
+  ```env
+  APP_PORT=8080
+  ```
+  and re-run Sail.
+
+---
+
+### Windows (WSL2)
+
+Run all Sail commands inside WSL2:
+
+```bash
+cd /mnt/c/laragon/www/UniSystem
+./vendor/bin/sail up -d
+```
+
+Make sure:
+- Docker Desktop is running
+- WSL integration is enabled for your Linux distro
 
 ---
 
@@ -135,6 +167,24 @@ This project is fully Dockerized using **Laravel Sail**.
 
 ---
 
+## Testing
+
+Feature tests validate:
+- Enrollment capacity limits
+- Duplicate enrollment prevention
+- Course uniqueness per term
+
+Run tests with:
+```bash
+php artisan test
+```
+or (Docker):
+```bash
+./vendor/bin/sail test
+```
+
+---
+
 ## Project Structure
 
 - **app/Models**  
@@ -146,10 +196,17 @@ This project is fully Dockerized using **Laravel Sail**.
 - **database/migrations**  
   Database schema definitions
 
+- **tests/Feature**  
+  Feature tests covering business rules
+
 ---
 
 ## Notes
 
-- RESTful API design
-- Business rules enforced at application level
-- Suitable for academic systems and backend portfolio projects
+
+- This project follows RESTful API design principles and clean separation of concerns.
+- Business rules (capacity limits, duplicate enrollment prevention, course uniqueness per term) are enforced at the application level.
+- Database integrity is supported through proper relationships and validation logic.
+- The project is Dockerized using Laravel Sail and Docker Compose (`compose.yml`).
+- On Windows, Laravel Sail must be executed inside WSL2.
+- The codebase is structured to be easily extensible for future features such as prerequisites, grading, or role-based access control.
